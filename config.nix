@@ -1,8 +1,8 @@
 { config, inputs, lib, pkgs, ... }:
 
 {
-    # imports = [ 
-    #     ./hardware-configuration.nix
+	# imports = [ 
+	#     ./hardware-configuration.nix
     # ];
 
     boot.loader = {
@@ -10,11 +10,11 @@
             enable = true;
             configurationLimit = 5;
         };
-        efi.canTouchEfiVariables = true;
+		efi.canTouchEfiVariables = true;
     };
 
     swapDevices = [{
-        device = "/swapfile";
+    	device = "/swapfile";
         size = 16 * 1024;
     }];
 
@@ -65,19 +65,11 @@
         packages = with pkgs; [
 			fzf
 			neovim
-            ripgrep
+			ripgrep
 			tmux
 			tpm
         ];
     };
-
-	virtualisation.docker = {
-		enable = true;
-		rootless = {
-			enable = true;
-			setSocketVariable = true;
-		};
-	};
     
     # system.stateVersion = "24.11";
 }
