@@ -1,16 +1,14 @@
 { config, inputs, lib, pkgs, ... }:
 
 {
-	# imports = [ 
-	#     ./hardware-configuration.nix
-	# ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     boot.loader = {
         systemd-boot = {
             enable = true;
             configurationLimit = 5;
         };
-		efi.canTouchEfiVariables = true;
+	efi.canTouchEfiVariables = true;
     };
 
     swapDevices = [{
@@ -18,22 +16,16 @@
         size = 16 * 1024;
     }];
 
-    hardware = {
-        graphics.enable = true;
-        # bluetooth = {
-        #     enable = true;
-        #     powerOnBoot = true;
-        # };
-    };
-    
+    hardware.graphics.enable = true;
+
     networking = {
-        networkmanager.enable = true;
         hostName = "case";
+        networkmanager.enable = true;
         firewall.enable = true;
         # firewall.allowedTCPPorts = [];
         # firewall.allowedUDPPorts = [];
     };
-    
+
     time.timeZone = "America/New_York";
     i18n.defaultLocale = "en_US.UTF-8";
 
@@ -43,9 +35,9 @@
     };
 
     environment.systemPackages = with pkgs; [
-		curl
+	    curl
         git
-		jellyfin
+	    jellyfin
         tree
         unzip
         vim
@@ -63,13 +55,10 @@
         extraGroups = [ "wheel" "networkmanager" "docker" ];
         shell = pkgs.zsh;
         packages = with pkgs; [
-			fzf
-			neovim
-			ripgrep
-			tmux
-			tpm
+		fzf
+		neovim
+		ripgrep
+		stow
         ];
     };
-    
-    # system.stateVersion = "24.11";
 }
