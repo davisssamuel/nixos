@@ -47,6 +47,7 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "jellyfin"
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [

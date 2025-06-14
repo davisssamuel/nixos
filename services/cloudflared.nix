@@ -1,12 +1,21 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   services.cloudflared = {
     enable = true;
-    # tunnels = {
-    #   "00000000-0000-0000-0000-000000000000" = {
-    #     credentialsFile = "${config.sops.secrets.cloudflared-creds.path}";
-    #     default = "http_status:404";
-    #   };
-    # };
+    tunnels = {
+      "bb45604a-1292-447a-a349-d619f43b798" = {
+        credentialsFile = "/home/sam/.cloudflared/bb45604a-1292-447a-a349-d619f43b798f.json";
+        default = "http_status:404";
+        ingress = {
+          "watch.davisssamuel.net" = {
+            service = "http://localhost:8096";
+          };
+        };
+      };
+    };
   };
+
+  environment.systemPackages = with pkgs; [
+    cloudflared
+  ];
 }
