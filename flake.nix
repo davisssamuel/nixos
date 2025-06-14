@@ -1,21 +1,21 @@
 {
-  description = "CASE NixOS Config";
+  description = "NixOS Homelab Config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
   };
 
-  outputs = { self, nixpkgs }: {
+  outputs = {self, nixpkgs, ...}: {
+	
+    system = "x86_64-linux";
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+	formatter = (system: nixpkgs.legacyPackages.${system}.nixfmt);
 
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
-    
     nixosConfigurations = {
-			case = nixpkgs.lib.nixosSystem {
-				specialArgs = { inherit inputs outputs; };
-				modules = [ ./nixos/configuration.nix ];
-			};
-		};
+	  case = nixpkgs.lib.nixosSystem {
+	    specialArgs = {inherit inputs outputs;};
+	    modules = [./machines/case/configuration.nix];
+	  };
+	};
   };
 }
