@@ -26,6 +26,13 @@
     timeout = 10;
   };
 
+  fileSystems."/".options = [ "noatime" ];
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 16 * 1024;
+  }];
+
   # users.mutableUsers = false;
   users.users.sam = {
     isNormalUser = true;
