@@ -2,7 +2,7 @@
 
 {
   imports = [
-	./packages.nix
+    ./packages.nix
   ];
 
   nix.settings = {
@@ -16,6 +16,7 @@
 	  configurationLimit = 5;
     };
 	efi.canTouchEfiVariables = true;
+    timeout = 10;
   };
 
   users.mutableUsers = false;
