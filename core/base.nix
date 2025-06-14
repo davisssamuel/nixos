@@ -26,7 +26,7 @@
     timeout = 10;
   };
 
-  users.mutableUsers = false;
+  # users.mutableUsers = false;
   users.users.sam = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
