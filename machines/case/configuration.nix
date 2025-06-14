@@ -9,7 +9,7 @@
   imports = [
     ./hardware-configuration.nix
 
-    ./../../core/base.nix
+    ./../../common/system.nix
 
     ./../../services/tailscale.nix
     ./../../services/cloudflared.nix

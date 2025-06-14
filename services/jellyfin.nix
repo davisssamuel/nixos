@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
 {
   services.jellyfin = {
     enable = true;
@@ -17,4 +17,8 @@
   ];
 
   users.groups.media = { };
+  users.users.${vars.username}= {
+    extraGroups = [ "jellyfin" ];
+  };
+
 }

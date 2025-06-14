@@ -1,10 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars ... }:
 {
   services.cloudflared = {
     enable = true;
     tunnels = {
       "bb45604a-1292-447a-a349-d619f43b798" = {
-        credentialsFile = "/home/sam/.cloudflared/bb45604a-1292-447a-a349-d619f43b798f.json";
+        credentialsFile = "/home/${vars.username}/.cloudflared/bb45604a-1292-447a-a349-d619f43b798f.json";
         default = "http_status:404";
         ingress = {
           "watch.davisssamuel.net" = {

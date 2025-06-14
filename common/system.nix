@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  vars,
   ...
 }:
 
@@ -41,8 +42,7 @@
     }
   ];
 
-  # users.mutableUsers = false;
-  users.users.sam = {
+  users.users.${vars.username} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
@@ -51,7 +51,7 @@
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGWklVXOkuctgqNhRa7BnysWiB9ZtQmrAdCrxvrFnjb3 sam@macbook.local"
+      vars.sshPublicKeyMacbook
     ];
   };
 

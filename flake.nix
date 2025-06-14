@@ -10,13 +10,15 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+      vars = import ./vars.nix;
     in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter.${system} = pkgs.nixfmt-rfc-style;
 
       nixosConfigurations = {
         case = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit vars; };
           modules = [ ./machines/case/configuration.nix ];
         };
       };
