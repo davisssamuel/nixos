@@ -1,18 +1,24 @@
-{inputs, config, pkgs, ...}: 
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
-  imports = [
-    ./packages.nix
-  ];
+  imports = [ ./packages.nix ];
 
-  nix = { 
-	gc = {
+  nix = {
+    gc = {
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
     };
   };
@@ -20,23 +26,28 @@
   boot.loader = {
     systemd-boot = {
       enable = true;
-	  configurationLimit = 5;
+      configurationLimit = 5;
     };
-	efi.canTouchEfiVariables = true;
+    efi.canTouchEfiVariables = true;
     timeout = 10;
   };
 
   fileSystems."/".options = [ "noatime" ];
 
-  swapDevices = [{
-    device = "/swapfile";
-    size = 16 * 1024;
-  }];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1024;
+    }
+  ];
 
   # users.mutableUsers = false;
   users.users.sam = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGWklVXOkuctgqNhRa7BnysWiB9ZtQmrAdCrxvrFnjb3 sam@macbook.local"
@@ -57,7 +68,7 @@
       };
       openFirewall = true;
     };
-	fstrim.enable = true;
+    fstrim.enable = true;
   };
 
   networking = {

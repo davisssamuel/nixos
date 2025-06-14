@@ -1,17 +1,20 @@
-{inputs, outputs, vars, ...}:
+{
+  inputs,
+  outputs,
+  vars,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
+  imports = [
+    ./hardware-configuration.nix
 
-      ./../../core/base.nix
+    ./../../core/base.nix
 
-	  ./../../services/tailscale.nix
-	  ./../../services/cloudflared.nix
-	  ./../../services/jellyfin.nix
-    ];
+    ./../../services/tailscale.nix
+    ./../../services/cloudflared.nix
+    ./../../services/jellyfin.nix
+  ];
 
   networking.hostName = "case";
 }
-
