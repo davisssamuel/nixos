@@ -1,4 +1,9 @@
-{ config, pkgs, vars, ... }:
+{
+  config,
+  pkgs,
+  vars,
+  ...
+}:
 {
   services.cloudflared = {
     enable = true;
