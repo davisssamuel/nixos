@@ -18,7 +18,7 @@
 
   users.groups.media = { };
   users.users.${vars.username}= {
-    extraGroups = [ "jellyfin" ];
+    extraGroups = [ "media" ];
   };
 
 }
