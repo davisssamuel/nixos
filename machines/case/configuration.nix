@@ -11,9 +11,9 @@
 
     ./../../common/system.nix
 
-    ./../../services/tailscale.nix
     ./../../services/cloudflared.nix
     ./../../services/jellyfin.nix
+    ./../../services/tailscale.nix
   ];
 
   networking.hostName = "case";
