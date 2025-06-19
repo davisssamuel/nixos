@@ -50,7 +50,7 @@
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
-      vars.sshPublicKeyMacbook
+      vars.macbookPublicKey
     ];
   };
 
