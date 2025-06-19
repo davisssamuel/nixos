@@ -8,8 +8,8 @@
   services.cloudflared = {
     enable = true;
     tunnels = {
-      "bb45604a-1292-447a-a349-d619f43b798" = {
-        credentialsFile = "/home/${vars.username}/.cloudflared/bb45604a-1292-447a-a349-d619f43b798f.json";
+      "${vars.caseTunnelId}" = {
+        credentialsFile = "/home/${vars.username}/.cloudflared/${vars.caseTunnelId}.json";
         default = "http_status:404";
         ingress = {
           "jellyfin.davisssamuel.net" = {
