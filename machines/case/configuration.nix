@@ -13,6 +13,7 @@
 
     ./../../services/cloudflared.nix
     ./../../services/jellyfin.nix
+    ./../../services/plex.nix
     ./../../services/tailscale.nix
   ];
 
