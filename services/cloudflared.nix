@@ -15,6 +15,9 @@
           "jellyfin.davisssamuel.net" = {
             service = "http://localhost:8096";
           };
+          "watch.davisssamuel.net" = {
+            service = "http://localhost:32400";
+          };
         };
       };
     };
