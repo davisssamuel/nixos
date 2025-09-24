@@ -8,13 +8,14 @@
   services.plex = {
     enable = true;
     openFirewall = true;
+		user="${vars.username}";
   };
 
-  # environment.systemPackages = with pkgs; [
-  #   jellyfin
-  #   jellyfin-web
-  #   jellyfin-ffmpeg
-  # ];
+  environment.systemPackages = with pkgs; [
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
+  ];
 
   systemd.tmpfiles.rules = [
     "d /media 2770 ${vars.username} plex - -"
