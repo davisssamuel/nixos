@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     curl
     git
-		htop
+    htop
     stow
     tree
     vim
