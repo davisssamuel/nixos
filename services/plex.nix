@@ -13,11 +13,7 @@
     group = "plex";
   };
 
-  environment.systemPackages = with pkgs; [
-    jellyfin
-    jellyfin-web
-    jellyfin-ffmpeg
-  ];
+  users.users.plex.extraGroups = [ "media" ];
 
   systemd.tmpfiles.rules = [
     #    "d /var/lib/plex 0755 plex plex -"
