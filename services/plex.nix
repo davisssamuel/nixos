@@ -8,7 +8,6 @@
   services.plex = {
     enable = true;
     openFirewall = true;
-		user="${vars.username}";
   };
 
   environment.systemPackages = with pkgs; [
@@ -18,6 +17,7 @@
   ];
 
   systemd.tmpfiles.rules = [
+    "d /var/lib/plex 0755 plex plex -"
     "d /media 2770 ${vars.username} plex - -"
   ];
 }
