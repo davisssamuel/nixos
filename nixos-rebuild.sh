@@ -7,7 +7,7 @@ LOG_FILE=".nixos-switch.log"
 
 # Require a system/flake target argument
 if [[ $# -lt 1 ]]; then
-    echo "Usage: $0 <flake-target> (e.g., my-hostname)"
+    echo "Usage: $0 <flake> (e.g. hostname)"
     exit 1
 fi
 FLAKE_TARGET="$1"
@@ -60,9 +60,10 @@ fi
 echo "Enter commit message for these changes:"
 read -r COMMIT_MSG
 
-# Include current generation metadata in the commit message
-current=$(nixos-rebuild list-generations --flake ".#$FLAKE_TARGET" | grep current)
-git commit -am "$COMMIT_MSG ($current)"
+# Commit all changes except .log files
+git add --update '*.nix'
+git reset -- "$LOG_FILE"
+git commit -m "$COMMIT_MSG"
 
 # Back to original directory
 popd >/dev/null
