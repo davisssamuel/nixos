@@ -24,7 +24,7 @@
     };
   };
 
-	nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
   boot.loader = {
     systemd-boot = {
