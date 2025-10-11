@@ -1,61 +1,71 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-# Edit your config
-$EDITOR configuration.nix
+CONFIG_DIR=~/nixos
+LOG_FILE=".nixos-switch.log"
 
-# cd to your config dir
-pushd ~/dotfiles/nixos/
+# Require a system/flake target argument
+if [[ $# -lt 1 ]]; then
+    echo "Usage: $0 <flake-target> (e.g., my-hostname)"
+    exit 1
+fi
+FLAKE_TARGET="$1"
 
-# Early return if no changes were detected (thanks @singiamtel!)
+# Go to your NixOS configuration directory
+pushd "$CONFIG_DIR" >/dev/null
+
+# Exit early if no changes in nix files
 if git diff --quiet '*.nix'; then
-	echo "No changes detected, exiting."
-	popd
-	exit 0
+    echo "No changes detected, exiting."
+    popd >/dev/null
+    exit 0
 fi
 
-# Autoformat your nix files
-alejandra . &>/dev/null ||
-	(
-		alejandra .
-		echo "formatting failed!" && exit 1
-	)
+# Autoformat nix files using nixfmt-tree
+echo "Autoformatting nix files..."
+# if ! nix run nixpkgs#nixfmt-tree -- .; then
+if ! find . -type f -name '*.nix' ! -name 'hardware-configuration.nix' -print0 | xargs -0 nix run nixpkgs#nixfmt-tree -- ; then
+    echo "Autoformatting failed!"
+    popd >/dev/null
+    exit 1
+fi
 
-# Shows your changes
-git diff -U0 '*.nix'
+# Show all changes in vim
+git diff -U0 '*.nix' | vim -
 
-echo "NixOS Rebuilding..."
+echo "Rebuilding NixOS flake '$FLAKE_TARGET'..."
 
-# Rebuild, output simplified errors, log trackebacks
-if sudo nixos-rebuild switch --flake ".#$1" &>.nixos-switch.log; then
-	echo -e "Done\n"
+# Attempt rebuild and log output
+if sudo nixos-rebuild switch --flake ".#$FLAKE_TARGET" &> "$LOG_FILE"; then
+    echo -e "NixOS rebuild for flake '$FLAKE_TARGET' completed successfully!\n"
 else
-	echo ""
-	cat .nixos-switch.log | grep --color error
+    echo "Errors during rebuild:"
+    grep --color=always "error" "$LOG_FILE" || true
 
-	# this is needed otherwise the script would not start next time telling you "no changes detected"
-	# (The weird patter is to include all subdirectories)
-	sudo git restore --staged ./**/*.nix
+    # Restore nix files to unstaged state for next run
+    sudo git restore --staged **/*.nix || true
 
-	if read -p "Open log? (y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
-		cat .nixos-switch.log | vim -
-	fi
+    # Optionally open full log
+    read -p "Open log? (y/N): " confirm
+    if [[ "$confirm" =~ ^[yY](es)?$ ]]; then
+        vim "$LOG_FILE"
+    fi
 
-	# Clean stuff and exit
-	shopt -u globstar
-	popd >/dev/null
-	exit 1
+    popd >/dev/null
+    exit 1
 fi
 
-# Get current generation metadata
-current=$(nixos-rebuild list-generations | grep current)
+# Prompt for commit message
+echo "Enter commit message for these changes:"
+read -r COMMIT_MSG
 
-# Commit all changes witih the generation metadata
-git commit -am "$current"
+# Include current generation metadata in the commit message
+current=$(nixos-rebuild list-generations --flake ".#$FLAKE_TARGET" | grep current)
+git commit -am "$COMMIT_MSG ($current)"
 
-# Back to where you were
-popd
+# Back to original directory
+popd >/dev/null
 
-# Notify all OK!
-notify-send -e "NixOS Rebuilt OK!"
+echo "Done!"
+
