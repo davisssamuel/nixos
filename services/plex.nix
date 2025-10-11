@@ -13,12 +13,13 @@
     group = "plex";
   };
 
-  users.users.plex.extraGroups = [ "media" ];
+  #  users.users.plex.extraGroups = [ "media" ];
 
   systemd.tmpfiles.rules = [
     #    "d /var/lib/plex 0755 plex plex -"
-    "d /media 0755 root media -"
-    "Z /media/movies 0755 root media -"
-    "Z /media/shows 0755 root media -"
+    #    "d /media 0755 root media -"
+    #    "Z /media/movies 0755 root media -"
+    #    "Z /media/shows 0755 root media -"
+    "Z /media 0755 plex plex -"
   ];
 }
