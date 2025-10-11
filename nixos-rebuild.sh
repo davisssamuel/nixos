@@ -16,7 +16,9 @@ FLAKE_TARGET="$1"
 pushd "$CONFIG_DIR" >/dev/null
 
 # Exit early if no changes in nix files
-if git diff --quiet '*.nix'; then
+CHANGES=$(git status --porcelain | grep '\.nix$' || true)
+
+if [[ -z "$CHANGES" ]]; then
     echo "No changes detected, exiting."
     popd >/dev/null
     exit 0
