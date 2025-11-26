@@ -13,8 +13,8 @@
     ./../../common/system.nix
 
     ./../../services/cloudflared.nix
-    ./../../services/cockpit.nix
     ./../../services/jellyfin.nix
+    ./../../services/minecraft-server.nix
     ./../../services/tailscale.nix
   ];
 
