@@ -1,7 +1,8 @@
 {
   inputs,
   outputs,
-  vars,
+	pkgs,
+	vars,
   ...
 }:
 
@@ -17,4 +18,9 @@
   ];
 
   networking.hostName = "case";
+
+	environment.systemPackages = with pkgs; [
+		neovim
+		nixd
+  ];
 }
