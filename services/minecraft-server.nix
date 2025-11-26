@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   ...
 }:
 {
@@ -8,7 +9,7 @@
     eula = true;
     openFirewall = true; # Port 25565
     declarative = true;
-    package = vanilla-1-8;
+    package = pkgs.minecraftServers.vanilla-1-8;
     serverProperties = {
       gamemode = 0;
       difficulty = 3;
