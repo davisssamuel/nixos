@@ -5,7 +5,6 @@
     curl
     git
     htop
-    stow
     tree
     vim
     wget

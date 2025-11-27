@@ -22,10 +22,11 @@
 
   environment.systemPackages = with pkgs; [
     fzf
-	gcc
+    gcc
     lua-language-server
     neovim
     nixd
+    stow
     stylua
   ];
 }
