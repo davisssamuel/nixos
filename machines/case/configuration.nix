@@ -21,7 +21,11 @@
   networking.hostName = "case";
 
   environment.systemPackages = with pkgs; [
+	fzf
+	helix
+	lua-language-server
     neovim
     nixd
+		stylua
   ];
 }
