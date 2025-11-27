@@ -14,7 +14,7 @@
 
     serverProperties = {
       gamemode = "survival";
-      difficulty = "hard";
+      difficulty = "normal";
       allow-cheats = false;
       level-type = "minecraft:large_biomes";
       max-players = 10;
@@ -22,6 +22,6 @@
       motd = "Classic Minecraft";
     };
 
-    jvmOpts = "-Xms4G -Xmx8G -XX:+UseG1GC";
+    jvmOpts = "-Xms4G -Xmx8G";
   };
 }
