@@ -1,8 +1,4 @@
-{
-  pkgs,
-  vars,
-  ...
-}:
+{ pkgs, vars, ... }:
 {
   services.cloudflared = {
     enable = true;
@@ -22,7 +18,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    cloudflared
-  ];
+  environment.systemPackages = with pkgs; [ cloudflared ];
 }

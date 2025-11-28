@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -19,6 +16,7 @@
     lua-language-server
     neovim
     nixd
+    nixfmt-classic
     stow
     stylua
   ];

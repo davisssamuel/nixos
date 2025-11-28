@@ -1,9 +1,4 @@
-{
-  pkgs,
-  vars,
-  ...
-}:
-
+{ pkgs, vars, ... }:
 {
   imports = [ ./packages.nix ];
 
@@ -49,9 +44,7 @@
       "networkmanager"
     ];
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-      vars.macbookPublicKey
-    ];
+    openssh.authorizedKeys.keys = [ vars.macbookPublicKey ];
   };
 
   programs.zsh = {

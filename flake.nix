@@ -6,14 +6,14 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }:
+    { nixpkgs, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       vars = import ./vars.nix;
     in
     {
-      formatter.${system} = pkgs.nixfmt-rfc-style;
+      formatter.${system} = pkgs.nixfmt-tree;
 
       nixosConfigurations = {
         case = nixpkgs.lib.nixosSystem {

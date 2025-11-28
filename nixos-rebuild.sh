@@ -26,7 +26,6 @@ fi
 
 # Autoformat nix files using nixfmt-tree
 echo "Autoformatting nix files..."
-# if ! nix run nixpkgs#nixfmt-tree -- .; then
 if ! find . -type f -name '*.nix' ! -name 'hardware-configuration.nix' -print0 | xargs -0 nix run nixpkgs#nixfmt-tree -- ; then
     echo "Autoformatting failed!"
     popd >/dev/null

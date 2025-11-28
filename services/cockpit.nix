@@ -1,12 +1,6 @@
+{ pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}:
-{
-  environment.systemPackages = with pkgs; [
-    cockpit
-  ];
+  environment.systemPackages = with pkgs; [ cockpit ];
 
   services.cockpit = {
     enable = true;
