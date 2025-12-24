@@ -7,6 +7,7 @@
     ./../../services/cloudflared.nix
     ./../../services/jellyfin.nix
     ./../../services/minecraft-server.nix
+    ./../../services/raspberry-flavoured-server.nix
     ./../../services/tailscale.nix
   ];
 
