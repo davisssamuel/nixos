@@ -1,7 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, vars, ... }:
 {
   services = {
-    displayManager.gdm.enable = true;
+    displayManager = {
+      gdm.enable = true;
+      autoLogin = {
+        enable = true;
+        user = vars.username;
+      };
+    };
     desktopManager.gnome.enable = true;
     gnome = {
       core-apps.enable = true;
