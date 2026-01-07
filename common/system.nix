@@ -1,5 +1,6 @@
 { pkgs, vars, ... }:
 {
+
   imports = [ ./packages.nix ];
 
   nix = {
@@ -73,5 +74,5 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 }
