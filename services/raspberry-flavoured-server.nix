@@ -13,8 +13,9 @@
         TYPE = "FORGE";
         VERSION = "1.19.2";
         PACKWIZ_URL = "https://asphodel.cc/packwiz/Ports/Curse/Raspberry-Server/pack.toml";
+        MEMORY = "4G";
+        JVM_OPTS = "-XX:+UseG1GC -XX:MaxGCPauseMillis=50";
       };
-      extraOptions = [ "--restart=unless-stopped" ];
     };
   };
 
