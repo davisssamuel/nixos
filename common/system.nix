@@ -45,7 +45,10 @@
       "networkmanager"
     ];
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [ vars.macbookPublicKey ];
+    openssh.authorizedKeys.keys = [
+      vars.casePublicKey
+      vars.macbookPublicKey
+    ];
   };
 
   programs.zsh = {
