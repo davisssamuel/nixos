@@ -16,10 +16,16 @@
       formatter.${system} = pkgs.nixfmt-tree;
 
       nixosConfigurations = {
+        tars = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit vars; };
+          modules = [ ./machines/tars/config.nix ];
+        };
+
         case = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit vars; };
-          modules = [ ./machines/case/configuration.nix ];
+          modules = [ ./machines/case/config.nix ];
         };
       };
     };
