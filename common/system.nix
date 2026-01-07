@@ -48,6 +48,7 @@
     openssh.authorizedKeys.keys = [
       vars.casePublicKey
       vars.macbookPublicKey
+      vars.tarsPublicKey
     ];
   };
 
