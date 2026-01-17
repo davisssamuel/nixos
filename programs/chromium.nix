@@ -10,5 +10,9 @@
       "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
       "ddkjiahejlhfcafbddmgiahcphecmpfh" # uBlock Origin Lite
     ];
+    extraOpts = {
+      "SyncDisabled" = true;
+      "PasswordManagerEnabled" = false;
+    };
   };
 }
