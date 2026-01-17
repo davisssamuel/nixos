@@ -10,6 +10,7 @@
     neovim
     nixd
     nixfmt-classic
+    shfmt
     stow
     stylua
     tree
