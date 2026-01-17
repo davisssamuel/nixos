@@ -22,7 +22,7 @@ done
 
 
 # Require a flake target (hostname)
-if [[ $# -lt 1 ]]; then
+if [[ -z "${FLAKE_TARGET:-}" ]]; then
     echo "Usage: $0 <flake-target> (e.g. hostname)"
     exit 1
 fi
