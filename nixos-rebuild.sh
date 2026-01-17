@@ -4,6 +4,7 @@ set -euo pipefail
 
 CONFIG_DIR=~/nixos
 LOG_FILE=".nixos-switch.log"
+FLAKE_TARGET=""
 DEBUG=0
 
 # Parse arguments
@@ -14,6 +15,10 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         *)
+			if [[ -n "$FLAKE_TARGET" ]]; then
+                echo "Multiple flake targets specified"
+                exit 1
+            fi
             FLAKE_TARGET="$1"
             shift
             ;;
@@ -22,11 +27,10 @@ done
 
 
 # Require a flake target (hostname)
-if [[ -z "${FLAKE_TARGET:-}" ]]; then
-    echo "Usage: $0 <flake-target> (e.g. hostname)"
+if [[ -z "${FLAKE_TARGET}" ]]; then
+    echo "Usage: $0 [--debug|-d] <flake-target> (e.g. hostname)"
     exit 1
 fi
-FLAKE_TARGET="$1"
 
 # Enter flake directory
 pushd "$CONFIG_DIR" >/dev/null
