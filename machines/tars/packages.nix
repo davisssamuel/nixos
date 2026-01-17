@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     alacritty
     cargo
+    nil
     rustc
     zed-editor
   ];
