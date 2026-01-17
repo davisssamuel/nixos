@@ -4,8 +4,8 @@ set -euo pipefail
 
 CONFIG_DIR=~/nixos
 LOG_FILE=".nixos-switch.log"
-FLAKE_TARGET=""
 DEBUG=0
+FLAKE_TARGET=""
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -24,7 +24,6 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-
 
 # Require a flake target (hostname)
 if [[ -z "${FLAKE_TARGET}" ]]; then
@@ -91,4 +90,3 @@ git commit -m "$COMMIT_MSG"
 popd >/dev/null
 
 echo "Done!"
-
