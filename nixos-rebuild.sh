@@ -4,6 +4,22 @@ set -euo pipefail
 
 CONFIG_DIR=~/nixos
 LOG_FILE=".nixos-switch.log"
+DEBUG=0
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -d|--debug)
+            DEBUG=1
+            shift
+            ;;
+        *)
+            FLAKE_TARGET="$1"
+            shift
+            ;;
+    esac
+done
+
 
 # Require a flake target (hostname)
 if [[ $# -lt 1 ]]; then
@@ -22,8 +38,8 @@ if ! git status --porcelain | grep -q '\.nix$'; then
     exit 0
 fi
 
-# Autoformat all nix files
-echo "Autoformatting nix files..."
+# Format all nix files
+echo "Formatting nix files..."
 nix run nixpkgs#nixfmt-tree -- .
 
 # Stage nix files so flakes can see untracked files
@@ -33,20 +49,25 @@ git add '*.nix'
 # Show full diff (exactly what will be committed)
 git diff --cached | vim -
 
+# Rebuild and capture log
 echo "Rebuilding NixOS flake '$FLAKE_TARGET'..."
 
-# Rebuild and capture log
-if sudo nixos-rebuild switch --flake ".#$FLAKE_TARGET" &> "$LOG_FILE"; then
-    echo "NixOS rebuild completed successfully."
+if [[ "$DEBUG" -eq 1 ]]; then
+    sudo nixos-rebuild switch --flake ".#$FLAKE_TARGET" |& tee "$LOG_FILE"
+    BUILD_STATUS=${PIPESTATUS[0]}
 else
+    sudo nixos-rebuild switch --flake ".#$FLAKE_TARGET" &> "$LOG_FILE"
+    BUILD_STATUS=$?
+fi
+
+if [[ "$BUILD_STATUS" -ne 0 ]]; then
     echo "Errors during rebuild:"
     grep --color=always "error" "$LOG_FILE" || true
 
-    # Safely unstage nix files (ignore errors)
+    # Safely unstage nix files
     git restore --staged '*.nix' 2>/dev/null || true
 
-    # Optional log viewer
-    read -p "Open log? (y/N): " confirm
+    read -p "Open log? (y/n): " confirm
     if [[ "$confirm" =~ ^[yY](es)?$ ]]; then
         vim "$LOG_FILE"
     fi
@@ -54,6 +75,8 @@ else
     popd >/dev/null
     exit 1
 fi
+
+echo "NixOS rebuild completed successfully."
 
 # Prompt for commit message
 echo "Enter commit message:"
