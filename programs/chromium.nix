@@ -12,7 +12,6 @@
     ];
     extraOpts = {
       "SyncDisabled" = true;
-      "PasswordManagerEnabled" = false;
     };
   };
 }
