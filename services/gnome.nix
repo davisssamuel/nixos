@@ -3,10 +3,10 @@
   services = {
     displayManager = {
       gdm.enable = true;
-      autoLogin = {
-        enable = true;
-        user = vars.username;
-      };
+      # autoLogin = {
+      #   enable = true;
+      #   user = vars.username;
+      # };
     };
 
     desktopManager.gnome.enable = true;
@@ -14,14 +14,14 @@
       core-apps.enable = true;
       core-developer-tools.enable = false;
       games.enable = false;
-      gnome-keyring.enable = true;
+      # gnome-keyring.enable = true;
     };
   };
 
-  security.pam.services = {
-    gdm.enableGnomeKeyring = true;
-    gdm-password.enableGnomeKeyring = true;
-  };
+  # security.pam.services = {
+  #   gdm.enableGnomeKeyring = true;
+  #   gdm-password.enableGnomeKeyring = true;
+  # };
 
   environment.gnome.excludePackages = with pkgs; [
     gnome-tour
