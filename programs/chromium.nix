@@ -11,6 +11,7 @@
       "ddkjiahejlhfcafbddmgiahcphecmpfh" # uBlock Origin Lite
     ];
     extraOpts = {
+      "BrowserSignin" = 0;
       "SyncDisabled" = true;
       "PasswordManagerEnabled" = false;
     };
