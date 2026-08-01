@@ -31,13 +31,6 @@
 
   fileSystems."/".options = [ "noatime" ];
 
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1024;
-    }
-  ];
-
   users.users.${vars.username} = {
     isNormalUser = true;
     extraGroups = [
@@ -46,22 +39,21 @@
     ];
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
-      vars.casePublicKey
       vars.macbookPublicKey
-      vars.tarsPublicKey
     ];
   };
 
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-  };
+  # programs.zsh = {
+  #   enable = true;
+  #   autosuggestions.enable = true;
+  # };
 
   services = {
     openssh = {
       enable = true;
       settings = {
-        PermitRootLogin = "no";
+		# TODO: revert later!! 
+        PermitRootLogin = "yes";
         PasswordAuthentication = false;
       };
       openFirewall = true;
@@ -78,5 +70,5 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
 }
