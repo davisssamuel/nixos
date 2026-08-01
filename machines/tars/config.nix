@@ -4,8 +4,8 @@
     ./hardware.nix
     ./packages.nix
     ./../../common/system.nix
-    ./../../programs/chromium.nix
-    ./../../services/gnome.nix
+    ./../../services/cloudflared.nix
+    ./../../services/headscale.nix
     ./../../services/tailscale.nix
   ];
 
