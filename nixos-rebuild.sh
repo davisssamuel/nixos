@@ -34,7 +34,7 @@ fi
 
 # Runs `nixos-rebuild switch` and sets BUILD_STATUS
 run_rebuild() {
-    echo "Rebuilding NixOS flake '$FLAKE_TARGET'..."
+    echo "Rebuilding NixOS flake: $FLAKE_TARGET..."
 
     if [[ "$DEBUG" -eq 1 ]]; then
         sudo nixos-rebuild switch --flake ".#$FLAKE_TARGET" |& tee "$LOG_FILE"
@@ -69,7 +69,7 @@ pushd "$CONFIG_DIR" >/dev/null
 
 # Rebuild without any changes
 if ! git status --porcelain | grep -q '\.nix$'; then
-    echo "No changes detected. Rebuilding without committing..."
+    echo "No changes detected."
 
     run_rebuild
 
