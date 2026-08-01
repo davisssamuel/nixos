@@ -7,12 +7,15 @@
         credentialsFile = "/home/${vars.username}/.cloudflared/${vars.caseTunnelId}.json";
         default = "http_status:404";
         ingress = {
-          "jellyfin.davisssamuel.net" = {
-            service = "http://localhost:8096";
-          };
-          "watch.davisssamuel.net" = {
-            service = "http://localhost:8096";
-          };
+          # "jellyfin.davisssamuel.net" = {
+          #   service = "http://localhost:8096";
+          # };
+          # "watch.davisssamuel.net" = {
+          #   service = "http://localhost:8096";
+          # };
+			"headscale.kyncayd.com" = {
+				service = "http://localhost:8080";
+			};
         };
       };
     };
