@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   services.headscale = {
     enable = true;
 
@@ -11,9 +10,7 @@
         base_domain = "tailnet.kyncayd.com";
       };
 
-      prefixes = [
-        "100.64.0.0/10";
-      ];
+      prefixes = [ "100.64.0.0/10" ];
     };
   };
 }
