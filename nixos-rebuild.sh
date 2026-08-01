@@ -34,7 +34,7 @@ fi
 
 # Runs `nixos-rebuild switch` and sets BUILD_STATUS
 run_rebuild() {
-    echo "Rebuilding NixOS flake: $FLAKE_TARGET..."
+    echo "Rebuilding NixOS flake: $FLAKE_TARGET ..."
 
     if [[ "$DEBUG" -eq 1 ]]; then
         sudo nixos-rebuild switch --flake ".#$FLAKE_TARGET" |& tee "$LOG_FILE"
