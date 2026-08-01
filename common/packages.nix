@@ -9,7 +9,7 @@
     lua-language-server
     neovim
     nixd
-    nixfmt-classic
+    nixfmt
     shfmt
     stow
     stylua
