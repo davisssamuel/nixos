@@ -14,7 +14,7 @@
     stow
     stylua
     tree
-	vim
+    vim
     wget
   ];
 }

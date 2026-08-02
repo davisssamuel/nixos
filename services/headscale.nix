@@ -8,7 +8,10 @@
       dns = {
         magic_dns = true;
         base_domain = "tailnet.kyncayd.com";
-		nameservers.global = [ "1.1.1.1" "1.0.0.1" ];
+        nameservers.global = [
+          "1.1.1.1"
+          "1.0.0.1"
+        ];
       };
 
       prefixes.v4 = "100.64.0.0/10";

@@ -31,33 +31,39 @@
 
   fileSystems."/".options = [ "noatime" ];
 
-  users.users.${vars.username} = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-    ];
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [
-      vars.macbookPublicKey
-    ];
-  };
+  # users.users.${vars.username} = {
+  #   isNormalUser = true;
+  #   extraGroups = [
+  #     "wheel"
+  #     "networkmanager"
+  #   ];
+  #   shell = pkgs.zsh;
+  #   openssh.authorizedKeys.keys = [
+  #     vars.macbookPublicKey
+  #   ];
+  # };
 
   # programs.zsh = {
   #   enable = true;
   #   autosuggestions.enable = true;
   # };
 
+  users.users.root = {
+    openssh.authorizedKeys.keys = [
+      vars.macbookPublicKey
+    ];
+  };
+
   services = {
     openssh = {
       enable = true;
       settings = {
-		# TODO: revert later!! 
         PermitRootLogin = "yes";
         PasswordAuthentication = false;
       };
       openFirewall = true;
     };
+
     fstrim.enable = true;
   };
 
@@ -68,7 +74,4 @@
 
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";
-
-  # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "26.05";
 }

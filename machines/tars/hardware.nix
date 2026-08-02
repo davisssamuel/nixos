@@ -17,8 +17,8 @@
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
-    "usb_storage"
     "usbhid"
+    "usb_storage"
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
@@ -26,14 +26,31 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/mapper/root";
-    fsType = "ext4";
+    device = "rpool/root";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
   };
 
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/b3983e09-b647-4fb5-8b03-5c20a6bc2ca2";
+  fileSystems."/nix" = {
+    device = "rpool/nix";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/var" = {
+    device = "rpool/var";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/home" = {
+    device = "rpool/home";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/2711-CC8F";
+    device = "/dev/disk/by-uuid/B11E-2E80";
     fsType = "vfat";
     options = [
       "fmask=0022"
@@ -41,7 +58,9 @@
     ];
   };
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/987e0b79-5032-43d4-ad77-1dd63eaf243a"; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
