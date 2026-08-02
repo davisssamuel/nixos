@@ -3,7 +3,7 @@
   services.minecraft-server = {
     enable = true;
     eula = true;
-    openFirewall = true; # Port 25565
+    openFirewall = true; # port 25565
     declarative = true;
 
     package = pkgs.minecraftServers.vanilla-1-8;

@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware.nix
+    ./packages.nix
     ./../../core/system.nix
     ./../../services/tailscale.nix
   ];

@@ -4,7 +4,7 @@ set -euo pipefail
 
 FLAKE_TARGET=""
 CONFIG_DIR=~/nixos
-LOG_FILE=".nixos-switch.log"
+LOG_FILE=".nixos_switch.log"
 DEBUG=0
 BUILD_STATUS=0
 

@@ -1,9 +1,9 @@
 # Rebuilding the system
 
-To easily rebuild the system, use the bundled `nixos-rebuild.sh` script with the specific flake config you want to target. For example:
+To easily rebuild the system, use the bundled `nixos_rebuild.sh` script with the specific flake config you want to target. For example:
 
 ```
-./nixos-rebuild.sh tars
+./nixos_rebuild.sh tars
 ```
 
 Alternatively, use the standard `nixos-rebuild` command:
