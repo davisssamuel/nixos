@@ -1,18 +1,13 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+	cargo
     curl
-    fzf
     gcc
     git
     htop
-    lua-language-server
-    neovim
-    nixd
-    nixfmt
-    shfmt
+	rustc
     stow
-    stylua
     tree
     vim
     wget
