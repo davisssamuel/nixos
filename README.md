@@ -34,8 +34,11 @@ Verify the `flake.lock` file was updated:
 git diff flake.lock
 ```
 
-Finally, rebuild the system with the `boot` command. This builds a new generation and makes it the default boot entry but does not immediately replace your running services. This is safer for major upgrades.
+Finally, rebuild the system with the `boot` command:
 
 ```
 sudo nixos-rebuild boot --flake .#tars
 ```
+
+This builds a new generation and makes it the default boot entry but does not immediately replace your running services. This is safer for major upgrades.
+
