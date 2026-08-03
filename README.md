@@ -9,7 +9,7 @@ To easily rebuild the system, use the bundled `nixos_rebuild.sh` script with the
 Alternatively, use the standard `nixos-rebuild` command:
 
 ```
-sudo nixos-rebuild switch --flake ".#tars"
+sudo nixos-rebuild switch --flake .#tars
 ```
 
 # Updating NixOS
