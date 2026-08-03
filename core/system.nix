@@ -3,34 +3,32 @@
 
   imports = [ ./packages.nix ];
 
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      auto-optimise-store = true;
-    };
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    auto-optimise-store = true;
   };
 
   nixpkgs.config.allowUnfree = true;
-  boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 5;
-      };
-      efi.canTouchEfiVariables = true;
-      timeout = 10;
-    };
 
-    zfs.forceImportRoot = true;
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 5;
+    };
+    efi.canTouchEfiVariables = true;
+    timeout = 10;
   };
+
+  boot.zfs.forceImportRoot = true;
 
   fileSystems."/".options = [ "noatime" ];
 
@@ -57,18 +55,16 @@
     ];
   };
 
-  services = {
-    openssh = {
-      enable = true;
-      settings = {
-        PermitRootLogin = "yes";
-        PasswordAuthentication = false;
-      };
-      openFirewall = true;
+  services.openssh = {
+    canTouchEfiVariablese = true;
+    settings = {
+      PermitRootLogin = "yes";
+      PasswordAuthentication = false;
     };
-
-    fstrim.enable = true;
+    openFirewall = true;
   };
+
+  services.fstrim.enable = true;
 
   networking = {
     networkmanager.enable = true;
