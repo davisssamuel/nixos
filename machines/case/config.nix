@@ -9,7 +9,7 @@
 
   networking = {
     hostName = "case";
-    hostId = "";
+    hostId = "0ae92de1";
   };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion

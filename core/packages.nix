@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-	cargo
+    cargo
     curl
     gcc
     git
     htop
-	rustc
+    rustc
     stow
     tree
     vim

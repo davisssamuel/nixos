@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    bash-language-server
     fzf
     lua-language-server
     neovim
@@ -8,7 +9,7 @@
     nixfmt
     shfmt
     stylua
-	tree-sitter
+    tree-sitter
     nil
   ];
 }

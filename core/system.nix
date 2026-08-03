@@ -20,17 +20,17 @@
 
   nixpkgs.config.allowUnfree = true;
   boot = {
-		loader = {
-  	  systemd-boot = {
-  	    enable = true;
-  	    configurationLimit = 5;
-  	  };
-  	  efi.canTouchEfiVariables = true;
-  	  timeout = 10;
-  	};
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
+      efi.canTouchEfiVariables = true;
+      timeout = 10;
+    };
 
-		zfs.forceImportRoot = true;
-	};
+    zfs.forceImportRoot = true;
+  };
 
   fileSystems."/".options = [ "noatime" ];
 
