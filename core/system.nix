@@ -48,7 +48,6 @@
   # };
 
   services.openssh = {
-    canTouchEfiVariablese = true;
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
