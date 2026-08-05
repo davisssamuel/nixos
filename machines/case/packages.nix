@@ -10,6 +10,5 @@
     shfmt
     stylua
     tree-sitter
-    nil
   ];
 }

@@ -1,4 +1,4 @@
-{ pkgs, vars, ... }:
+{ vars, ... }:
 {
 
   imports = [ ./packages.nix ];
@@ -32,33 +32,25 @@
 
   fileSystems."/".options = [ "noatime" ];
 
-  # users.users.${vars.username} = {
-  #   isNormalUser = true;
-  #   extraGroups = [
-  #     "wheel"
-  #     "networkmanager"
-  #   ];
-  #   shell = pkgs.zsh;
-  #   openssh.authorizedKeys.keys = [
-  #     vars.macbookPublicKey
-  #   ];
-  # };
+  users.users.${vars.username} = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
+    hashedPassword = vars.samHashedPassword;
+    openssh.authorizedKeys.keys = [ vars.macbookPublicKey ];
+  };
 
   # programs.zsh = {
   #   enable = true;
   #   autosuggestions.enable = true;
   # };
 
-  users.users.root = {
-    openssh.authorizedKeys.keys = [
-      vars.macbookPublicKey
-    ];
-  };
-
   services.openssh = {
     canTouchEfiVariablese = true;
     settings = {
-      PermitRootLogin = "yes";
+      PermitRootLogin = "no";
       PasswordAuthentication = false;
     };
     openFirewall = true;
