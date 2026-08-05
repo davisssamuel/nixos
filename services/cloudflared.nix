@@ -22,9 +22,6 @@ in
           # "watch.davisssamuel.net" = {
           #   service = "http://localhost:8096";
           # };
-          "headscale.kyncayd.com" = {
-            service = "http://localhost:8080";
-          };
         };
       };
     };
