@@ -30,8 +30,8 @@ zfs set com.sun:auto-snapshot=true <zfs_pool>
 **On Case**, run: 
 
 ```
-sudo zfs create -o mountpoint=/backup <zfs_pool>/backup
-sudo zfs set com.sun:auto-snapshot=false <zfs_pool>/backup
+zfs create -o mountpoint=/backup <zfs_pool>/backup
+zfs set com.sun:auto-snapshot=false <zfs_pool>/backup
 ```
 
 # Rebuilding the system
