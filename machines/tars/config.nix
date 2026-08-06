@@ -10,7 +10,7 @@
 
   networking = {
     hostName = "tars";
-    hostId = vars.hostIds.tars;
+    hostId = vars.hosts.tars.hostId;
   };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion

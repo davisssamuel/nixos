@@ -10,7 +10,7 @@
 
   networking = {
     hostName = "case";
-    hostId = vars.hostIds.case;
+    hostId = vars.hosts.case.hostId;
   };
 
   services.zfsAutoSync = {

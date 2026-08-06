@@ -6,7 +6,7 @@
 }:
 let
   hostName = config.networking.hostName;
-  tunnelId = vars.tunnelIds.${hostName};
+  tunnelId = vars.hosts.${hostName}.tunnelId;
 in
 {
   services.cloudflared = {

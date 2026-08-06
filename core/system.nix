@@ -32,14 +32,14 @@
 
   fileSystems."/".options = [ "noatime" ];
 
-  users.users.${vars.username} = {
+  users.users.${vars.users.sam.username} = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
     ];
-    hashedPassword = vars.hashedPassword;
-    openssh.authorizedKeys.keys = [ vars.macbookPublicKey ];
+    hashedPassword = vars.users.sam.hashedPassword;
+    openssh.authorizedKeys.keys = [ vars.users.sam.macbookPublicKey ];
   };
 
   # programs.zsh = {
