@@ -21,10 +21,10 @@ For example:
 nixos-rebuild switch --flake .#tars
 ```
 
-Repeat this for Case and ensure the two machines are on the same network. **On Tars**, be sure to run:
+To setup Tars and Case, ensure the two machines are on the same network. **On Tars**, run:
 
 ```
-zfs set com.sun:auto-snapshot=true rpool
+zfs set com.sun:auto-snapshot=true <zfs_pool>
 ```
 
 # Rebuilding the system
