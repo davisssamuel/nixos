@@ -4,6 +4,11 @@ This is the NixOS configuration for my machines, both desktops and servers. As o
 
 Tars and Case work in tandem: Tars acts as the main system and Case acts as the backup target and recovery host. Tars automatically takes ZFS snapshots and Case automatically backs them up using `zfs send`. This way, Tars can be recovered in an event of catastrophic failure.
 
+TODO:
+- [x] Move config variables to vars.nix
+- [ ] Create activation scripts declaratively to minimize post-install setup
+- [ ] Create custom ISO for easy reproducibility
+
 # Installing the system
 
 To install, I recommend following the NixOS Wiki for [simple NixOS ZFS on root installation
