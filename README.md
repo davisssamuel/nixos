@@ -6,7 +6,7 @@ Tars and Case work in tandem: Tars acts as the main system and Case acts as the 
 
 # Installing the system
 
-To install, I recommend following the NixOS Wiki for [Simple NixOS ZFS on root installation
+To install, I recommend following the NixOS Wiki for [simple NixOS ZFS on root installation
 ](https://wiki.nixos.org/wiki/ZFS#Simple_NixOS_ZFS_on_root_installation).
 
 After installing NixOS, clone this repo and run:
