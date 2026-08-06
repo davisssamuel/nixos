@@ -1,6 +1,35 @@
+# About
+
+This is the NixOS configuration for my machines, both desktops and servers. As of August 2026, it primarily powers my servers, Tars and Case.
+
+Tars and Case work in tandem: Tars acts as the main system and Case acts as the backup target and recovery host. Tars automatically takes ZFS snapshots and Case automatically backs them up using `zfs send`. This way, Tars can be recovered in an event of catastrophic failure.
+
+# Installing the system
+
+To install, I recommend following the NixOS Wiki for [Simple NixOS ZFS on root installation
+](https://wiki.nixos.org/wiki/ZFS#Simple_NixOS_ZFS_on_root_installation).
+
+After installing NixOS, clone this repo and run:
+
+```
+nixos-rebuild switch --flake <path/to/flake>#<nixosConfigurations.name>
+```
+
+For example:
+
+```
+nixos-rebuild switch --flake .#tars
+```
+
+Repeat this for Case and ensure the two machines are on the same network. **On Tars**, be sure to run:
+
+```
+zfs set com.sun:auto-snapshot=true rpool
+```
+
 # Rebuilding the system
 
-To easily rebuild the system, use the bundled `nixos_rebuild.sh` script with the specific flake config you want to target. For example:
+To easily rebuild the system after changes, use the bundled `nixos_rebuild.sh` script with the specific flake config you want to target. For example:
 
 ```
 ./nixos_rebuild.sh tars
@@ -9,7 +38,7 @@ To easily rebuild the system, use the bundled `nixos_rebuild.sh` script with the
 Alternatively, use the standard `nixos-rebuild` command:
 
 ```
-sudo nixos-rebuild switch --flake .#tars
+nixos-rebuild switch --flake .#tars
 ```
 
 # Updating NixOS
@@ -37,8 +66,7 @@ git diff flake.lock
 Finally, rebuild the system with the `boot` command:
 
 ```
-sudo nixos-rebuild boot --flake .#tars
+nixos-rebuild boot --flake .#tars
 ```
 
 This builds a new generation and makes it the default boot entry but does not immediately replace your running services. This is safer for major upgrades.
-
