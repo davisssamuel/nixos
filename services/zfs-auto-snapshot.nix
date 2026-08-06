@@ -1,4 +1,4 @@
 { ... }:
 {
-  services.zfs.autoSnapshot.enable = false;
+  services.zfs.autoSnapshot.enable = true;
 }
