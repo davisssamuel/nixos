@@ -25,6 +25,7 @@ To setup Tars and Case, ensure the two machines are on the same network. **On Ta
 
 ```
 zfs set com.sun:auto-snapshot=true <zfs_pool>
+zfs set com.sun:auto-snapshot=false <zfs_pool>/nix
 ```
 
 **On Case**, run: 
