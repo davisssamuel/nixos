@@ -27,6 +27,13 @@ To setup Tars and Case, ensure the two machines are on the same network. **On Ta
 zfs set com.sun:auto-snapshot=true <zfs_pool>
 ```
 
+**On Case**, run: 
+
+```
+sudo zfs create -o mountpoint=/backup <zfs_pool>/backup
+sudo zfs set com.sun:auto-snapshot=false <zfs_pool>/backup
+```
+
 # Rebuilding the system
 
 To easily rebuild the system after changes, use the bundled `nixos_rebuild.sh` script with the specific flake config you want to target. For example:
