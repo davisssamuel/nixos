@@ -5,7 +5,7 @@
     ./packages.nix
     ./../../core/system.nix
     ./../../services/tailscale.nix
-	./../../services/zfs-auto-snapshot.nix
+    ./../../services/zfs-auto-snapshot.nix
   ];
 
   networking = {
