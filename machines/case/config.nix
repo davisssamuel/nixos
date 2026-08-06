@@ -10,9 +10,9 @@
 
   services.zfsAutoSync = {
     enable = true;
-    remoteUser = "sam";
     remoteHost = "tars";
     remoteDataset = "rpool";
+	localPrefix = "rpool/backup";
   };
 
   networking = {
