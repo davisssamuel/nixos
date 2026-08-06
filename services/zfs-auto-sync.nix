@@ -7,11 +7,14 @@
 let
   cfg = config.services.zfsAutoSync;
 
+  excludeGrep = lib.concatMapStringsSep "|" (ds: "^${cfg.remoteDataset}/${ds}\$") cfg.excludeDatasets;
+
   zfsSyncScript = pkgs.writeShellApplication {
     name = "zfs-auto-sync";
     runtimeInputs = [
       pkgs.zfs
       pkgs.openssh
+      pkgs.ripgrep
     ];
     text = ''
       set -euo pipefail
@@ -21,7 +24,9 @@ let
       DATASET_REMOTE="${cfg.remoteDataset}"
       LOCAL_BASE="${cfg.localPrefix}/''${REMOTE_HOST}"
 
-      CHILDREN=$(ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs list -H -o name -r -d1 "$DATASET_REMOTE" | grep -v "^$DATASET_REMOTE\$")
+      CHILDREN=$(ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs list -H -o name -r -d1 "$DATASET_REMOTE" \
+          | rg -v "^$DATASET_REMOTE\$" \
+          ${lib.optionalString (cfg.excludeDatasets != [ ]) ''| rg -v "${excludeGrep}"''})
 
       for CHILD in $CHILDREN; do
           DATASET_LOCAL="$LOCAL_BASE/$CHILD"
@@ -71,6 +76,12 @@ in
       type = lib.types.str;
       example = "rpool";
       description = "Dataset on the remote host to recursively replicate.";
+    };
+
+    excludeDatasets = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ "nix" ];
+      description = "List of child datasets to be excluded in backup.";
     };
 
     localPrefix = lib.mkOption {

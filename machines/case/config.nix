@@ -1,4 +1,4 @@
-{ ... }:
+{ vars, ... }:
 {
   imports = [
     ./hardware.nix
@@ -10,19 +10,19 @@
 
   networking = {
     hostName = "case";
-    hostId = "0ae92de1";
+    hostId = vars.hostIds.case;
   };
 
   services.zfsAutoSync = {
     enable = true;
-    remoteHost = "tars";
-    remoteDataset = "rpool";
-    localPrefix = "rpool/backup";
+    remoteHost = vars.sync.remoteHost;
+    remoteDataset = vars.sync.remoteDataset;
+    localPrefix = vars.sync.localPrefix;
   };
 
-  services.openssh.knownHosts.tars = {
-    hostNames = [ "tars" ];
-    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3FwNyKNKzSMxBotGcIyg8vPJ4Y53CUBdTBWoZ9wMbq";
+  services.openssh.knownHosts.${vars.sync.remoteHost} = {
+    hostNames = [ vars.sync.remoteHost ];
+    publicKey = vars.sync.publicKey;
   };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion

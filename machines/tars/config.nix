@@ -1,4 +1,4 @@
-{ ... }:
+{ vars, ... }:
 {
   imports = [
     ./hardware.nix
@@ -10,7 +10,7 @@
 
   networking = {
     hostName = "tars";
-    hostId = "ff328b24";
+    hostId = vars.hostIds.tars;
   };
 
   # https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion

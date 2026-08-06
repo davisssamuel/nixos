@@ -38,7 +38,7 @@
       "wheel"
       "networkmanager"
     ];
-    hashedPassword = vars.samHashedPassword;
+    hashedPassword = vars.hashedPassword;
     openssh.authorizedKeys.keys = [ vars.macbookPublicKey ];
   };
 
