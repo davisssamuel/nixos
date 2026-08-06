@@ -29,7 +29,8 @@ let
           ${lib.optionalString (cfg.excludeDatasets != [ ]) ''| rg -v "${excludeGrep}"''})
 
       for CHILD in $CHILDREN; do
-          DATASET_LOCAL="$LOCAL_BASE/$CHILD"
+          CHILD_REL="''${CHILD#"$DATASET_REMOTE"/}"
+          DATASET_LOCAL="$LOCAL_BASE/$CHILD_REL"
           LATEST_REMOTE=$(ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs list -t snapshot -o name -s creation -H -d1 "$CHILD" | tail -1)
 
           if [ -z "$LATEST_REMOTE" ]; then
