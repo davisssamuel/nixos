@@ -28,8 +28,6 @@
     timeout = 10;
   };
 
-  boot.zfs.forceImportRoot = true;
-
   fileSystems."/".options = [ "noatime" ];
 
   users.users.${vars.users.sam.username} = {

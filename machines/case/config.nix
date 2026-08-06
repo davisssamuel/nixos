@@ -13,6 +13,8 @@
     hostId = vars.hosts.case.hostId;
   };
 
+  boot.zfs.forceImportRoot = true;
+
   services.zfsAutoSync = {
     enable = true;
     remoteHost = vars.sync.remoteHost;
