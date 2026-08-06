@@ -19,25 +19,35 @@ let
       REMOTE_USER="${cfg.remoteUser}"
       REMOTE_HOST="${cfg.remoteHost}"
       DATASET_REMOTE="${cfg.remoteDataset}"
-      DATASET_LOCAL="${cfg.localPrefix}/''${REMOTE_HOST}/${cfg.remoteDataset}"
-                                    
-      LATEST_REMOTE=$(ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs list -t snapshot -o name -s creation -H -d1 "$DATASET_REMOTE" | tail -1)
+      LOCAL_BASE="${cfg.localPrefix}/''${REMOTE_HOST}"
 
-      if ! zfs list "$DATASET_LOCAL" >/dev/null 2>&1; then
-          echo "No local dataset yet, doing full initial recursive send"
-          ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs send -R "$LATEST_REMOTE" | zfs recv -F -d "${cfg.localPrefix}/''${REMOTE_HOST}"
-          exit 0
-      fi
+      CHILDREN=$(ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs list -H -o name -r -d1 "$DATASET_REMOTE" | grep -v "^$DATASET_REMOTE\$")
 
-      LATEST_LOCAL_SNAP=$(zfs list -t snapshot -o name -s creation -H -d1 "$DATASET_LOCAL" | tail -1 | sed 's/.*@/@/')
-      BASE="''${LATEST_REMOTE%@*}$LATEST_LOCAL_SNAP"
+      for CHILD in $CHILDREN; do
+          DATASET_LOCAL="$LOCAL_BASE/$CHILD"
+          LATEST_REMOTE=$(ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs list -t snapshot -o name -s creation -H -d1 "$CHILD" | tail -1)
 
-      if [ "$BASE" = "$LATEST_REMOTE" ]; then
-          echo "Already up to date"
-          exit 0
-      fi
+          if [ -z "$LATEST_REMOTE" ]; then
+              echo "No snapshots yet on $CHILD, skipping"
+              continue
+          fi
 
-      ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs send -R -i "$BASE" "$LATEST_REMOTE" | zfs recv -F -d "${cfg.localPrefix}/''${REMOTE_HOST}"
+          if ! zfs list "$DATASET_LOCAL" >/dev/null 2>&1; then
+              echo "No local dataset for $CHILD yet, doing full initial recursive send"
+              ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs send -R "$LATEST_REMOTE" | zfs recv -F -d "$LOCAL_BASE"
+              continue
+          fi
+
+          LATEST_LOCAL_SNAP=$(zfs list -t snapshot -o name -s creation -H -d1 "$DATASET_LOCAL" | tail -1 | sed 's/.*@/@/')
+          BASE="''${LATEST_REMOTE%@*}$LATEST_LOCAL_SNAP"
+
+          if [ "$BASE" = "$LATEST_REMOTE" ]; then
+              echo "$CHILD already up to date"
+              continue
+          fi
+
+          ssh "$REMOTE_USER"@"$REMOTE_HOST" zfs send -R -i "$BASE" "$LATEST_REMOTE" | zfs recv -F -d "$LOCAL_BASE"
+      done
     '';
   };
 in
